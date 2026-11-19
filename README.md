@@ -1,12 +1,12 @@
 # Slinky Precedent Research Plugin
 
-Connects Slinky's knowledge base of 105,000+ historical SEC corporate episodes, structural cohorts, and filing-backed execution trajectories to analyst workflows in Claude (`claude.ai`, Claude Desktop, Claude in Excel, Claude Code), VS Code, and GitHub Copilot. Pairs concise institutional precedent analysis with 4-tab `.xlsx` Precedent Matrix workbooks.
+Connects Slinky's knowledge base of 105,000+ historical SEC corporate episodes, structural cohorts, and filing-backed execution trajectories to analyst workflows in Claude (`claude.ai`, Claude Desktop, Claude in Excel, Claude Code). Pairs concise institutional precedent analysis with 4-tab `.xlsx` Precedent Matrix workbooks.
 
 ## Requirements & Data Handling
 
 The plugin connects to Slinky's hosted remote MCP server (`https://slinky-mcp-production.up.railway.app/mcp`), an authenticated OAuth 2.1 Protected Resource Server.
 
-- **Authentication:** Requires an approved Slinky account (design partner or paid plan). This plugin contains no credentials, no API keys, and no local executable scripts. On first use, your client discovers Slinky's OAuth 2.1 server via `/.well-known/oauth-protected-resource`, registers dynamically with PKCE (`S256`), and opens `https://slinky.so/oauth/consent` for approval with rotating refresh tokens.
+- **Authentication:** Requires an approved Slinky account (design partner or paid plan). This plugin contains no credentials, no API keys, and no local executable scripts. On first use, Claude discovers Slinky's OAuth 2.1 server via `/.well-known/oauth-protected-resource`, registers dynamically with PKCE (`S256`), and opens `https://slinky.so/oauth/consent` for approval with rotating refresh tokens.
 - **Data Sent:** Only your structured search/query parameters (tickers, strategic move filters, natural-language research prompts) and OAuth bearer token are sent to `https://slinky-mcp-production.up.railway.app/mcp` to retrieve read-only public SEC/KB records. No local machine files or environment variables are transmitted.
 - **Policies & Support:** [Privacy Policy](https://slinky.so/privacy) · [Terms of Service](https://slinky.so/terms) · [Setup & Docs](https://slinky.so/mcp/setup) · [aly@anlgs.com](mailto:aly@anlgs.com)
 
