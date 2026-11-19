@@ -4,10 +4,10 @@ Connects Slinky's knowledge base of 105,000+ historical SEC corporate episodes, 
 
 ## Requirements & Data Handling
 
-The plugin connects to Slinky's hosted remote MCP server (`https://slinky-mcp-production.up.railway.app/mcp`), an authenticated OAuth 2.1 Protected Resource Server.
+The plugin connects to Slinky's hosted remote MCP server (`https://mcp.slinky.so/mcp`), an authenticated OAuth 2.1 Protected Resource Server.
 
 - **Authentication:** Requires an approved Slinky account (design partner or paid plan). This plugin contains no credentials, no API keys, and no local executable scripts. On first use, Claude discovers Slinky's OAuth 2.1 server via `/.well-known/oauth-protected-resource`, registers dynamically with PKCE (`S256`), and opens `https://slinky.so/oauth/consent` for approval with rotating refresh tokens.
-- **Data Sent:** Only your structured search/query parameters (tickers, strategic move filters, natural-language research prompts) and OAuth bearer token are sent to `https://slinky-mcp-production.up.railway.app/mcp` to retrieve read-only public SEC/KB records. No local machine files or environment variables are transmitted.
+- **Data Sent:** Only your structured search/query parameters (tickers, strategic move filters, natural-language research prompts) and OAuth bearer token are sent to `https://mcp.slinky.so/mcp` to retrieve read-only public SEC/KB records. No local machine files or environment variables are transmitted.
 - **Policies & Support:** [Privacy Policy](https://slinky.so/privacy) · [Terms of Service](https://slinky.so/terms) · [Setup & Docs](https://slinky.so/mcp/setup) · [aly@anlgs.com](mailto:aly@anlgs.com)
 
 Maintained by Analogous ([slinky.so](https://slinky.so)).
@@ -22,7 +22,7 @@ Slinky indexes **structural strategic precedents and filing-backed execution his
 
 ### Remote MCP Server (12 Read-Only KB Tools)
 
-The plugin bundles `.mcp.json` (`type: "http"`) pointing to `https://slinky-mcp-production.up.railway.app/mcp`. Every tool exposes a human-readable `title` and read-only `ToolAnnotations` (`readOnlyHint=True`, `destructiveHint=False`, `idempotentHint=True`, `openWorldHint=False`).
+The plugin bundles `.mcp.json` (`type: "http"`) pointing to `https://mcp.slinky.so/mcp`. Every tool exposes a human-readable `title` and read-only `ToolAnnotations` (`readOnlyHint=True`, `destructiveHint=False`, `idempotentHint=True`, `openWorldHint=False`).
 
 | Tool | Purpose |
 |------|---------|
