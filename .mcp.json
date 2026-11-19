@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "slinky-remote-kb": {
+      "url": "https://slinky-mcp-production.up.railway.app/mcp"
+    }
+  }
+}

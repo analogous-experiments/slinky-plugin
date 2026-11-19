@@ -1,0 +1,31 @@
+{
+  "name": "slinky",
+  "owner": {
+    "name": "Analogous",
+    "url": "https://slinky.so"
+  },
+  "description": "Slinky Precedent Research plugin marketplace — SEC-grounded historical business precedents, structural cohort base rates, and 4-tab .xlsx Precedent Matrix workbooks.",
+  "plugins": [
+    {
+      "name": "slinky",
+      "source": "./",
+      "description": "SEC-grounded strategic precedent research engine — pairs institutional precedent analysis with deterministic 4-tab .xlsx Precedent Matrix workbooks.",
+      "version": "0.4.0",
+      "author": {
+        "name": "Analogous",
+        "url": "https://slinky.so"
+      },
+      "homepage": "https://slinky.so",
+      "repository": "https://github.com/analogous-experiments/slinky-plugin",
+      "license": "MIT",
+      "keywords": [
+        "precedent-research",
+        "financial-analysis",
+        "sec-filings",
+        "due-diligence",
+        "excel",
+        "mcp"
+      ]
+    }
+  ]
+}
