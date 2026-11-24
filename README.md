@@ -1,60 +1,57 @@
 # Slinky Precedent Research Plugin
 
-Connects Slinky's knowledge base of 105,000+ historical SEC corporate episodes, structural cohorts, and filing-backed execution trajectories to analyst workflows in Claude (`claude.ai`, Claude Desktop, Claude in Excel, Claude Code). Pairs concise institutional precedent analysis with 4-tab `.xlsx` Precedent Matrix workbooks.
+Structured knowledge base of SEC filings for Claude (`claude.ai`, Claude Desktop, Claude in Excel, Claude Code). Query strategic moves and historical precedents across 100,000+ multi-year corporate episodes from active and delisted public companies—defaulting to crisp chat synthesis with optional 4-tab `.xlsx` Precedent Matrix workbooks.
 
 ## Requirements & Data Handling
 
-The plugin connects to Slinky's hosted remote MCP server (`https://mcp.slinky.so/mcp`), an authenticated OAuth 2.1 Protected Resource Server.
+Connects to Slinky's hosted remote MCP server (`https://mcp.slinky.so/mcp`), an OAuth 2.1 Protected Resource Server.
 
-- **Authentication:** Requires an approved Slinky account (design partner or paid plan). This plugin contains no credentials, no API keys, and no local executable scripts. On first use, Claude discovers Slinky's OAuth 2.1 server via `/.well-known/oauth-protected-resource`, registers dynamically with PKCE (`S256`), and opens `https://slinky.so/oauth/consent` for approval with rotating refresh tokens.
-- **Data Sent:** Only your structured search/query parameters (tickers, strategic move filters, natural-language research prompts) and OAuth bearer token are sent to `https://mcp.slinky.so/mcp` to retrieve read-only public SEC/KB records. No local machine files or environment variables are transmitted.
-- **Policies & Support:** [Privacy Policy](https://slinky.so/privacy) · [Terms of Service](https://slinky.so/terms) · [Setup & Docs](https://slinky.so/mcp/setup) · [aly@anlgs.com](mailto:aly@anlgs.com)
+- **Authentication:** Requires an approved Slinky account. Contains no credentials, API keys, or local scripts. Claude discovers OAuth metadata via `/.well-known/oauth-protected-resource`, registers with PKCE (`S256`), and opens `https://slinky.so/oauth/consent`.
+- **Data Sent:** Structured search parameters (tickers, strategic filters, research prompts) and OAuth bearer token only. No local files or environment variables are transmitted.
+- **Links & Support:** [Privacy Policy](https://slinky.so/privacy) · [Terms of Service](https://slinky.so/terms) · [Setup & Docs](https://slinky.so/mcp/setup) · [aly@anlgs.com](mailto:aly@anlgs.com)
 
 Maintained by Analogous ([slinky.so](https://slinky.so)).
 
-## What Slinky Does (and Doesn't)
+## What Slinky Covers
 
-Slinky indexes **structural strategic precedents and filing-backed execution histories** across active and delisted SEC issuers: how companies expanded platforms, diversified products, navigated debt/capex cycles, executed M&A, or pivoted across industries — complete with verbatim SEC/news evidence quotes, unpooled historical financial windows (`annual_fy` vs. `quarterly_standalone` `pre_arc` / `during_arc` / `post_arc` snapshots), and one-shot Precedent Matrix / Disclosure Wire JSON exports for `.xlsx` workbook compilation. It does not cover live market quotes, consensus earnings estimates, or price targets.
+Instead of sifting through raw filings, query Slinky by **strategic precedent**: find companies across industries that attempted similar moves, capital-structure shifts, or M&A bets, inspect their directional pre/post financial position (`FY` and standalone `Q` reported separately), and follow source EDGAR links. Slinky does not provide live market quotes, consensus estimates, or price targets.
 
 ---
 
-## Plugin Components
+## Components
 
-### Remote MCP Server (12 Read-Only KB Tools)
+### Remote MCP Server (12 Read-Only Tools & 3 Built-in Prompts)
 
-The plugin bundles `.mcp.json` (`type: "http"`) pointing to `https://mcp.slinky.so/mcp`. Every tool exposes a human-readable `title` and read-only `ToolAnnotations` (`readOnlyHint=True`, `destructiveHint=False`, `idempotentHint=True`, `openWorldHint=False`).
+Bundled via `.mcp.json` (`type: "http"`, `https://mcp.slinky.so/mcp`). All 12 tools are read-only (`readOnlyHint=True`).
 
 | Tool | Purpose |
 |------|---------|
-| `query_arcs_by_predicates` | Predicate-first precedent retrieval across active `v3` mechanisms, condition cases (`mechanism_is_null=True` + `execution_vehicle`), catalysts, strategic intents, and tickers — with full-cohort base rates and optional `include_matrix_export=True` (`25–50` period-locked rows + EDGAR trail) |
-| `query_situations_by_predicates` | Evidence-level SEC and news situation retrieval across all 9 `situation_kind` values, execution vehicles, and tickers |
-| `query_canonicals_by_predicates` | Retrieve structural precedent cohorts ranked by matching case count and cohort base rates |
-| `list_predicate_vocabulary` | Enumerate active `v3` controlled vocabularies and legacy alias mappings |
-| `arc_finder` | Natural-language precedent discovery for raw business situation fragments |
-| `get_arc_details` | Full record for a single `arc_id` or concurrent batch `arc_ids=[...]` (up to 6 IDs): chronological situations, verbatim evidence quotes, resolved EDGAR URLs, SIC metadata, and unpooled `FY` vs. standalone `Q` financial windows |
-| `search_canonical_patterns` | Natural-language structural cohort search |
-| `find_pattern_exemplars` | Exemplar companies and documented outcomes within a structural pattern cohort |
-| `get_situations_by_pattern` | Filing and news situations belonging to a pattern cohort |
-| `get_company_history` | Unified strategic history for a company name or ticker symbol |
-| `get_recent_news_situations` | Recent `T+1` SEC disclosures ordered by filing date, with procedural noise filtering and optional `include_wire_export=True` watchlist export |
-| `search_company_pages` | Semantic search over crawled company foundational pages |
+| `query_arcs_by_predicates` | Filter precedents by strategic mechanism, execution vehicle, catalyst, intent, or ticker (`output_mode`: `chat` / `workbook` / `deep`, optional matrix export) |
+| `query_situations_by_predicates` | Evidence-level SEC and news situations across 9 situation kinds and tickers |
+| `query_canonicals_by_predicates` | Structural precedent cohorts ranked by matching case count and outcome mix |
+| `list_predicate_vocabulary` | Enumerate active `v3` controlled filter vocabularies and aliases |
+| `arc_finder` | Natural-language search for raw strategic situations (`action` + `motivation`) |
+| `get_arc_details` | Full episode record for 1 ID or a batch of up to 6 `arc_ids`: chronological filings, quotes, EDGAR links, and unpooled `FY` vs. standalone `Q` financials |
+| `search_canonical_patterns` | Natural-language search over recurring cross-industry strategic patterns |
+| `find_pattern_exemplars` | Exemplar companies and documented outcomes for a structural pattern |
+| `get_situations_by_pattern` | Filing and news situations belonging to a pattern |
+| `get_company_history` | Unified multi-year strategic history for a company name or ticker |
+| `get_recent_news_situations` | Recent `T+1` SEC filing disclosures with procedural noise filtering and optional watchlist export |
+| `search_company_pages` | Semantic search over archived company foundational pages |
 
-### Skill & Paired 4-Tab `.xlsx` Workbook Contract (`/slinky:research`)
+**Built-in MCP prompts:** `stress_test_company`, `precedent_cohort_sweep`, `watchlist_triage` (each supports `output_mode`: `chat` | `workbook` | `deep`).
 
-[`skills/research/SKILL.md`](skills/research/SKILL.md) unifies three institutional workflows:
-- **Mode A:** `T+1` SEC filing catalysts & multi-ticker watchlist triage
-- **Mode B:** Company history, M&A / capital-structure stress tests & IC red-teams
-- **Mode C:** Top-down cross-industry structural pattern & base-rate sweeps
+### `/slinky:research` Skill
 
-When spreadsheet execution is available (Claude Desktop / `claude.ai` built-in `.xlsx` sandbox or native `Claude in Excel`), `/slinky:research` pairs a concise executive cover note with a 4-tab Precedent Workbook (`<slug>_precedent_comps.xlsx`):
-1. **`Cohort Base Rates`** — Full-cohort server denominator + live cross-sheet `=COUNTIF`, `=AVERAGEIFS`, and `MEDIAN` formulas strictly separating `Annual Basis (FY)` from `Standalone Quarterly Basis (Q)`.
-2. **`Precedent Matrix`** — `25–50` period-locked rows (including explicit `DELISTED` anti-survivorship tags, USD-million flows, decimal margins, live `bps`-delta formulas, blank-not-zero `None` cells, and clickable `=HYPERLINK` EDGAR links).
-3. **Strategy Context Tab** — Polymorphically rendered as `Anchor Scorecard` (`Mode B`), `Sector Breakdown` (`Mode C`), or `Disclosure Wire` (`Mode A`).
-4. **`SEC Filing Trail`** — Chronological non-procedural milestone filings with clickable EDGAR accession hyperlinks.
+[`skills/research/SKILL.md`](skills/research/SKILL.md) routes three analyst workflows—**`T+1` watchlist triage**, **company/deal stress tests**, and **cross-industry pattern sweeps**—with depth routing:
+
+- **`chat` (default):** Fast inline prose and compact tables (no `.xlsx` or `.docx`).
+- **`deep` (opt-in):** Unpacks 2–4 contrasting precedents for a Condition Ledger, Negative Mappings, and Counterfactuals.
+- **`workbook` (opt-in):** Pairs an executive cover note with a 4-tab `<slug>_precedent_comps.xlsx` workbook (`Cohort Summary`, `Precedent Matrix`, Strategy Context tab, and `SEC Filing Trail`) in Claude's spreadsheet sandbox or directly inside `Claude in Excel`.
 
 ---
 
-## Quick-Start Examples
+## Examples
 
 ```text
 /slinky:research this week
