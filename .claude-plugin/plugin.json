@@ -1,7 +1,7 @@
 {
   "name": "slinky",
-  "description": "Query strategic moves and historical precedents across 100,000+ corporate episodes from active and delisted public companies—with optional .xlsx Precedent Matrix workbooks.",
-  "version": "0.4.1",
+  "description": "Structured knowledge base of SEC filings. Search 100,000+ corporate episodes by strategic precedent across active and delisted public companies—peek into pre/post financials with source filings.",
+  "version": "0.4.2",
   "author": {
     "name": "Analogous",
     "url": "https://slinky.so"

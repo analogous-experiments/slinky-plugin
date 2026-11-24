@@ -1,6 +1,6 @@
 # Slinky Precedent Research Plugin
 
-Structured knowledge base of SEC filings for Claude (`claude.ai`, Claude Desktop, Claude in Excel, Claude Code). Query strategic moves and historical precedents across 100,000+ multi-year corporate episodes from active and delisted public companies—defaulting to crisp chat synthesis with optional 4-tab `.xlsx` Precedent Matrix workbooks.
+Slinky is a structured knowledge base of 100,000+ multi-year corporate episodes across active and delisted public companies. Instead of sifting through disclosures, you can natively search by strategic precedent—finding companies that adopted similar strategic moves, capital-structure shifts, or M&A bets across industries, peeking into their financial position before and after a strategic event, and getting the source filings behind any precedent. Defaults to crisp chat synthesis with optional 4-tab `.xlsx` Precedent Matrix workbooks in Claude (`claude.ai`, Claude Desktop, Claude in Excel, Claude Code).
 
 ## Requirements & Data Handling
 
